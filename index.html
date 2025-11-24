@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[您的名字] 醫師｜醫學國考精準導航</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Noto Sans TC (Traditional Chinese) & Roboto (English/Numbers) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Roboto', 'Noto Sans TC', sans-serif; /* 英數用 Roboto 看起來更像數據報告 */
+            scroll-behavior: smooth;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        
+        /* 自定義醫學風格背景 */
+        .medical-grid-bg {
+            background-color: #ffffff;
+            background-image: 
+                linear-gradient(#e2e8f0 1px, transparent 1px),
+                linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* 專業漸層文字 */
+        .gradient-text-pro {
+            background: linear-gradient(135deg, #0f172a 0%, #0e7490 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 玻璃擬態卡片 (Glassmorphism for subtle depth) */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        /* 強調標記筆效果 */
+        .highlight-mark {
+            background: linear-gradient(120deg, #fef08a 0%, #fef08a 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            display: inline;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation (Sticky & Minimal) -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0 flex items-center group">
+                        <div class="bg-slate-900 text-white p-2 rounded mr-3 group-hover:bg-cyan-700 transition">
+                            <i class="fa-solid fa-staff-snake text-lg"></i>
+                        </div>
+                        <span class="font-bold text-xl tracking-wide text-slate-800">[您的名字] <span class="text-cyan-600 font-medium">MED.Edu</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8 text-sm font-bold tracking-wide text-slate-600">
+                    <a href="#about" class="hover:text-cyan-700 transition py-2 border-b-2 border-transparent hover:border-cyan-600">關於講師</a>
+                    <a href="#evidence" class="hover:text-cyan-700 transition py-2 border-b-2 border-transparent hover:border-cyan-600">實證解析</a>
+                    <a href="#curriculum" class="hover:text-cyan-700 transition py-2 border-b-2 border-transparent hover:border-cyan-600">課程架構</a>
+                    <a href="#pricing" class="hover:text-cyan-700 transition py-2 border-b-2 border-transparent hover:border-cyan-600">方案</a>
+                    <a href="#contact" class="bg-slate-900 text-white px-5 py-2.5 rounded-sm hover:bg-slate-800 transition shadow-lg shadow-slate-900/20">
+                        <i class="fa-brands fa-line mr-1"></i> 預約諮詢
+                    </a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="flex items-center md:hidden">
+                    <button type="button" onclick="toggleMenu()" class="text-slate-500 hover:text-slate-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <a href="#about" class="block px-6 py-4 text-slate-700 hover:bg-slate-50 border-b border-gray-100 font-medium">關於講師</a>
+            <a href="#evidence" class="block px-6 py-4 text-slate-700 hover:bg-slate-50 border-b border-gray-100 font-medium">實證解析</a>
+            <a href="#curriculum" class="block px-6 py-4 text-slate-700 hover:bg-slate-50 border-b border-gray-100 font-medium">課程架構</a>
+            <a href="#pricing" class="block px-6 py-4 text-slate-700 hover:bg-slate-50 border-b border-gray-100 font-medium">方案</a>
+            <a href="#contact" class="block px-6 py-4 bg-slate-50 text-cyan-700 font-bold">加入 LINE 諮詢</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section: Clinical Precision Theme -->
+    <header class="medical-grid-bg pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
+                
+                <!-- Text Content -->
+                <div class="lg:col-span-7 mb-12 lg:mb-0 text-center lg:text-left">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full border border-cyan-200 bg-cyan-50 text-cyan-800 text-xs font-bold tracking-wider mb-6">
+                        <span class="w-2 h-2 rounded-full bg-cyan-500 mr-2 animate-pulse"></span>
+                        最新國考指引已更新
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-6 leading-tight">
+                        別再用「背」的考國考<br>
+                        <span class="gradient-text-pro">讓臨床邏輯帶你通關</span>
+                    </h1>
+                    <p class="mt-4 text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+                        歷年考題解析命中率高達 <span class="highlight-mark text-slate-900 font-bold">95%</span>。
+                        <br>由主治醫師親自拆解，將 <span class="font-bold text-slate-800">教科書死知識</span> 轉化為 <span class="font-bold text-slate-800">臨床拿分直覺</span>。
+                    </p>
+                    
+                    <div class="mt-10 flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                        <a href="#curriculum" class="px-8 py-4 bg-slate-900 text-white text-lg font-bold rounded hover:bg-slate-800 transition shadow-xl shadow-slate-900/20 flex items-center justify-center">
+                            立即試聽課程 <i class="fa-solid fa-stethoscope ml-2 text-cyan-400"></i>
+                        </a>
+                        <a href="#evidence" class="px-8 py-4 bg-white text-slate-700 border border-slate-300 text-lg font-bold rounded hover:bg-slate-50 hover:border-slate-400 transition flex items-center justify-center">
+                            查看歷年戰績 <i class="fa-solid fa-chart-line ml-2 text-slate-400"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-8 flex items-center justify-center lg:justify-start gap-6 text-sm text-slate-500 font-medium">
+                        <span class="flex items-center"><i class="fa-solid fa-check text-cyan-600 mr-2"></i> 醫師國考 (一)/(二)</span>
+                        <span class="flex items-center"><i class="fa-solid fa-check text-cyan-600 mr-2"></i> 藥師國考</span>
+                    </div>
+                </div>
+
+                <!-- Visual: Professional & Abstract -->
+                <div class="lg:col-span-5 relative">
+                    <!-- Decor: Abstract Medical Chart -->
+                    <div class="absolute -top-10 -right-10 w-64 h-64 bg-cyan-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+                    <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-slate-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+                    
+                    <div class="relative rounded-sm shadow-2xl bg-white border-4 border-white p-2 transform rotate-1 hover:rotate-0 transition duration-500">
+                        <!-- Image Area -->
+                         <div class="bg-slate-100 h-[450px] w-full flex flex-col relative overflow-hidden group">
+                            <!-- Background Pattern -->
+                            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
+                            
+                            <!-- Placeholder Icon/Content -->
+                            <div class="flex-1 flex items-center justify-center flex-col text-slate-300 z-10">
+                                <i class="fa-solid fa-user-doctor text-8xl mb-6 text-slate-200"></i>
+                                <span class="text-xl font-bold text-slate-400">講師專業形象照</span>
+                                <span class="text-sm text-slate-400 mt-2">建議：穿著白袍、雙手抱胸或持聽診器<br>背景為純色或模糊的醫院長廊</span>
+                            </div>
+
+                            <!-- Name Tag Overlay -->
+                            <div class="absolute bottom-6 left-6 z-20">
+                                <div class="bg-slate-900/90 backdrop-blur text-white px-6 py-4 rounded-sm shadow-lg border-l-4 border-cyan-500">
+                                    <p class="font-bold text-xl leading-none">[您的名字] 醫師</p>
+                                    <p class="text-xs text-cyan-300 mt-1 uppercase tracking-wider">Attending Physician</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Dashboard: High Trust -->
+    <section class="bg-slate-900 border-y border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-slate-700/50">
+                <div class="p-8 text-center hover:bg-slate-800/50 transition">
+                    <div class="text-4xl lg:text-5xl font-black text-cyan-400 mb-2 font-mono">95<span class="text-2xl">%</span></div>
+                    <div class="text-slate-400 text-sm font-medium tracking-wide">考點命中率</div>
+                </div>
+                <div class="p-8 text-center hover:bg-slate-800/50 transition">
+                    <div class="text-4xl lg:text-5xl font-black text-white mb-2 font-mono">800<span class="text-2xl text-cyan-600">+</span></div>
+                    <div class="text-slate-400 text-sm font-medium tracking-wide">輔導學員</div>
+                </div>
+                <div class="p-8 text-center hover:bg-slate-800/50 transition">
+                    <div class="text-4xl lg:text-5xl font-black text-white mb-2 font-mono">Top5<span class="text-2xl text-cyan-600">%</span></div>
+                    <div class="text-slate-400 text-sm font-medium tracking-wide">學員平均成績</div>
+                </div>
+                <div class="p-8 text-center hover:bg-slate-800/50 transition">
+                    <div class="text-4xl lg:text-5xl font-black text-white mb-2 font-mono">10<span class="text-2xl text-cyan-600">yr</span></div>
+                    <div class="text-slate-400 text-sm font-medium tracking-wide">國考數據庫</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section: Timeline & Credibility -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-12 gap-12 lg:gap-20 items-start">
+                <!-- Left: Credibility Card -->
+                <div class="md:col-span-5 relative">
+                    <div class="bg-slate-50 rounded-lg p-8 border border-slate-200 shadow-sm relative z-10">
+                        <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                            <i class="fa-solid fa-id-card-clip text-cyan-600 mr-3"></i> 講師資歷
+                        </h3>
+                        <div class="space-y-6 relative border-l-2 border-slate-200 ml-3 pl-8">
+                            <!-- Timeline Items -->
+                            <div class="relative">
+                                <span class="absolute -left-[39px] top-1 h-5 w-5 rounded-full border-4 border-white bg-cyan-600"></span>
+                                <h4 class="font-bold text-slate-900">現任 [醫院名稱] 主治醫師</h4>
+                                <p class="text-sm text-slate-500 mt-1">專攻心血管藥理、重症醫學</p>
+                            </div>
+                            <div class="relative">
+                                <span class="absolute -left-[39px] top-1 h-5 w-5 rounded-full border-4 border-white bg-slate-400"></span>
+                                <h4 class="font-bold text-slate-900">國考全校前 [X] 名</h4>
+                                <p class="text-sm text-slate-500 mt-1">[XX] 醫學大學 醫學系</p>
+                            </div>
+                            <div class="relative">
+                                <span class="absolute -left-[39px] top-1 h-5 w-5 rounded-full border-4 border-white bg-slate-400"></span>
+                                <h4 class="font-bold text-slate-900">優秀住院醫師獎</h4>
+                                <p class="text-sm text-slate-500 mt-1">[年份] 年度評選</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-6 border-t border-slate-200">
+                             <div class="flex items-center justify-between">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-slate-800">100+</div>
+                                    <div class="text-xs text-slate-500 uppercase">小時影音</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-slate-800">500+</div>
+                                    <div class="text-xs text-slate-500 uppercase">詳解題庫</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-slate-800">4.9</div>
+                                    <div class="text-xs text-slate-500 uppercase">學員評分</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Decorative background element -->
+                    <div class="absolute top-4 -left-4 w-full h-full border border-slate-100 rounded-lg -z-0"></div>
+                </div>
+
+                <!-- Right: Philosophy -->
+                <div class="md:col-span-7">
+                    <span class="text-cyan-600 font-bold tracking-wider text-sm uppercase mb-2 block">Teaching Philosophy</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 leading-snug">
+                        國考是一場資訊戰，<br>不是學術研究。
+                    </h2>
+                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                        在醫學中心這幾年，我看過太多學弟妹因為「讀太細」而輸掉考試。國考不考你如何做研究，它考的是**「標準答案的邏輯」**。
+                    </p>
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                        我的資料庫分析顯示，高達 80% 的考點是重複的。我的教學只做三件事：**減法、邏輯、更新**。我把不會考的雜訊過濾掉，只給你臨床與考試都通用的核心觀念。
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="p-4 bg-slate-50 rounded border border-slate-100 text-center hover:border-cyan-200 transition">
+                            <i class="fa-solid fa-microscope text-2xl text-slate-700 mb-3"></i>
+                            <h5 class="font-bold text-slate-900">邏輯拆解</h5>
+                            <p class="text-xs text-slate-500 mt-2">不背死書，懂機轉</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded border border-slate-100 text-center hover:border-cyan-200 transition">
+                            <i class="fa-solid fa-rotate text-2xl text-slate-700 mb-3"></i>
+                            <h5 class="font-bold text-slate-900">指引更新</h5>
+                            <p class="text-xs text-slate-500 mt-2">Guideline 即時同步</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded border border-slate-100 text-center hover:border-cyan-200 transition">
+                            <i class="fa-solid fa-laptop-medical text-2xl text-slate-700 mb-3"></i>
+                            <h5 class="font-bold text-slate-900">臨床實戰</h5>
+                            <p class="text-xs text-slate-500 mt-2">與醫院工作接軌</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evidence Section: Comparison Design (Diagnosis Style) -->
+    <section id="evidence" class="py-24 bg-slate-50 border-t border-slate-200 relative overflow-hidden">
+        <!-- Background Text Watermark -->
+        <div class="absolute top-10 left-0 text-9xl font-black text-slate-200/40 select-none z-0">PROOF</div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="bg-slate-900 text-white text-xs font-bold px-3 py-1 rounded uppercase tracking-wide">Case Study</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-4">為什麼我的學生能拿高分？</h2>
+                <p class="mt-4 text-slate-600">以 113-1 國考題 Q.45 為例，看見「一般思維」與「臨床思維」的差距。</p>
+            </div>
+
+            <!-- The Comparison Card -->
+            <div class="bg-white rounded-xl shadow-xl overflow-hidden border border-slate-200">
+                <div class="grid md:grid-cols-2 relative">
+                    
+                    <!-- Left: The Problem (Red Theme) -->
+                    <div class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-slate-100 relative bg-red-50/30">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-red-400"></div>
+                        <div class="flex items-center mb-6">
+                            <span class="bg-red-100 text-red-700 font-bold px-3 py-1 rounded text-sm mr-3">一般考生</span>
+                            <span class="text-slate-400 text-sm">Traditional Thinking</span>
+                        </div>
+                        
+                        <div class="font-serif text-slate-600 italic mb-6 text-lg">
+                            "病人沒有糖尿病，為什麼要選降血糖藥？這題一定是陷阱，刪去法先刪掉 SGLT2i..."
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center text-slate-500 line-through decoration-red-400">
+                                <i class="fa-regular fa-square mr-3"></i> Empagliflozin (SGLT2i)
+                            </div>
+                            <div class="flex items-center text-slate-800 font-bold bg-red-100 p-2 rounded border border-red-200">
+                                <i class="fa-regular fa-check-square mr-3 text-red-600"></i> Amlodipine (錯誤選項)
+                            </div>
+                        </div>
+
+                        <div class="mt-8 pt-4 border-t border-red-100 text-red-600 font-bold text-sm flex items-center">
+                            <i class="fa-solid fa-xmark-circle text-xl mr-2"></i> 結果：痛失 1.25 分
+                        </div>
+                    </div>
+
+                    <!-- VS Badge in Middle -->
+                    <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg z-20 hidden md:block border border-slate-100">
+                        <div class="bg-slate-800 text-white font-black w-10 h-10 flex items-center justify-center rounded-full text-sm">VS</div>
+                    </div>
+
+                    <!-- Right: The Solution (Green/Teal Theme) -->
+                    <div class="p-8 md:p-12 relative bg-cyan-50/30">
+                        <div class="absolute top-0 right-0 w-1 h-full bg-cyan-500"></div>
+                        <div class="flex items-center mb-6">
+                            <span class="bg-cyan-100 text-cyan-800 font-bold px-3 py-1 rounded text-sm mr-3">我的學員</span>
+                            <span class="text-slate-400 text-sm">Clinical Logic</span>
+                        </div>
+
+                        <div class="font-sans text-slate-800 font-medium mb-6 text-lg">
+                            "看到 HFrEF 直接聯想四大支柱。老師說過：<span class="bg-yellow-200 px-1">不管有無 DM，SGLT2i 都是 Class I 標準用藥</span>。"
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center text-cyan-900 font-bold bg-green-100 p-2 rounded border border-green-200 shadow-sm">
+                                <i class="fa-regular fa-check-square mr-3 text-green-600"></i> Empagliflozin (SGLT2i)
+                            </div>
+                            <div class="flex items-center text-slate-400 opacity-50">
+                                <i class="fa-regular fa-square mr-3"></i> Amlodipine
+                            </div>
+                        </div>
+
+                        <div class="mt-8 pt-4 border-t border-cyan-100 text-cyan-700 font-bold text-sm flex items-center">
+                            <i class="fa-solid fa-check-circle text-xl mr-2"></i> 結果：秒殺得分 (耗時 10秒)
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+             <div class="text-center mt-10">
+                <a href="#curriculum" class="inline-flex items-center text-slate-600 hover:text-cyan-600 font-bold border-b-2 border-slate-300 hover:border-cyan-600 pb-1 transition">
+                    這只是其中一題，查看完整課程目錄 <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum: Structured Outline -->
+    <section id="curriculum" class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-end justify-between mb-12 border-b border-gray-200 pb-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900">課程章節範例</h2>
+                    <p class="mt-2 text-slate-500">Subject: Cardiology / Heart Failure</p>
+                </div>
+                <button class="hidden sm:block text-sm font-bold text-cyan-700 border border-cyan-700 px-4 py-2 rounded hover:bg-cyan-50 transition">
+                    <i class="fa-solid fa-file-pdf mr-2"></i>下載 Syllabus
+                </button>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Chapter Item -->
+                <div class="group border border-slate-200 rounded-lg p-6 hover:border-cyan-400 hover:shadow-md transition cursor-pointer bg-white">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                        <div class="flex items-start">
+                            <div class="bg-slate-100 text-slate-500 font-mono text-sm px-2 py-1 rounded mr-4 mt-1 group-hover:bg-cyan-100 group-hover:text-cyan-700 transition">01</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-800 group-hover:text-cyan-800 transition">病理生理與觀念重塑</h4>
+                                <p class="text-sm text-slate-500 mt-1">Preload/Afterload, HFrEF vs HFpEF 鑑別診斷</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 sm:mt-0 flex items-center text-sm text-slate-400">
+                            <i class="fa-regular fa-clock mr-2"></i> 20 mins
+                            <i class="fa-solid fa-chevron-right ml-4 group-hover:translate-x-1 transition"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter Item (Highlight) -->
+                <div class="group border-l-4 border-l-cyan-500 border-y border-r border-slate-200 rounded-r-lg p-6 hover:shadow-md transition cursor-pointer bg-cyan-50/10">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                        <div class="flex items-start">
+                            <div class="bg-cyan-100 text-cyan-700 font-mono text-sm px-2 py-1 rounded mr-4 mt-1">02</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900">藥物治療黃金準則 (2025 Guideline)</h4>
+                                <p class="text-sm text-slate-500 mt-1">ARNI, BB, MRA, SGLT2i 四支柱細節與禁忌症</p>
+                                <span class="inline-block mt-2 text-xs font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded">
+                                    <i class="fa-solid fa-fire mr-1"></i> 高頻考點
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mt-4 sm:mt-0 flex items-center text-sm text-slate-400">
+                            <i class="fa-regular fa-clock mr-2"></i> 30 mins
+                            <i class="fa-solid fa-chevron-right ml-4 group-hover:translate-x-1 transition"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter Item -->
+                <div class="group border border-slate-200 rounded-lg p-6 hover:border-cyan-400 hover:shadow-md transition cursor-pointer bg-white">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                        <div class="flex items-start">
+                            <div class="bg-slate-100 text-slate-500 font-mono text-sm px-2 py-1 rounded mr-4 mt-1 group-hover:bg-cyan-100 group-hover:text-cyan-700 transition">03</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-800 group-hover:text-cyan-800 transition">實戰題型解析</h4>
+                                <p class="text-sm text-slate-500 mt-1">精選近 5 年 10 道關鍵題，關鍵字秒殺法示範</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 sm:mt-0 flex items-center text-sm text-slate-400">
+                            <i class="fa-regular fa-clock mr-2"></i> 25 mins
+                            <i class="fa-solid fa-chevron-right ml-4 group-hover:translate-x-1 transition"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing: Clean & Professional -->
+    <section id="pricing" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900">學習方案</h2>
+                <p class="mt-4 text-slate-600">一次付費，考前無限複習。投資你的醫師執照。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+                
+                <!-- Basic -->
+                <div class="bg-white p-8 rounded-lg shadow-sm border border-slate-200 hover:border-slate-300 transition">
+                    <h3 class="text-xl font-bold text-slate-900">國考衝刺班</h3>
+                    <div class="my-4">
+                        <span class="text-3xl font-bold text-slate-900">NT$ 3,XXX</span>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-6 border-b border-slate-100 pb-6">適合考前 30 天最後衝刺，只抓高頻重點。</p>
+                    <ul class="space-y-4 text-sm text-slate-600 mb-8">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-cyan-600 mr-2"></i> 重點筆記 (PDF)</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-cyan-600 mr-2"></i> 5 年考古題詳解</li>
+                    </ul>
+                    <a href="#" class="block w-full py-3 text-center border border-slate-300 rounded font-bold text-slate-600 hover:bg-slate-50 transition">選擇方案</a>
+                </div>
+
+                <!-- Premium (Featured) -->
+                <div class="bg-white p-8 rounded-lg shadow-xl border-t-4 border-cyan-600 relative transform scale-105 z-10">
+                    <div class="absolute top-0 right-0 bg-cyan-600 text-white text-xs font-bold px-3 py-1 rounded-bl">RECOMMENDED</div>
+                    <h3 class="text-2xl font-bold text-slate-900">全科制霸班</h3>
+                    <div class="my-4">
+                        <span class="text-4xl font-bold text-slate-900">NT$ 1X,XXX</span>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-6 border-b border-slate-100 pb-6">完整建構臨床邏輯，從基礎到進階一次搞定。</p>
+                    <ul class="space-y-4 text-sm text-slate-700 mb-8 font-medium">
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-cyan-600 mr-2"></i> 衝刺班所有內容</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-cyan-600 mr-2"></i> 完整系統性影音課程</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-cyan-600 mr-2"></i> <span class="border-b-2 border-yellow-200">實體精美講義寄送到府</span></li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-cyan-600 mr-2"></i> 專屬學員群組問答</li>
+                    </ul>
+                    <a href="#" class="block w-full py-4 text-center bg-slate-900 text-white rounded font-bold hover:bg-slate-800 transition shadow-lg">立即報名</a>
+                </div>
+
+                <!-- Mentorship -->
+                <div class="bg-white p-8 rounded-lg shadow-sm border border-slate-200 hover:border-slate-300 transition">
+                    <h3 class="text-xl font-bold text-slate-900">一對一指導</h3>
+                    <div class="my-4">
+                        <span class="text-3xl font-bold text-slate-900">面議</span>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-6 border-b border-slate-100 pb-6">針對弱科補強、讀書計畫擬定。</p>
+                    <ul class="space-y-4 text-sm text-slate-600 mb-8">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-cyan-600 mr-2"></i> 線上視訊教學</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-cyan-600 mr-2"></i> 個人化進度安排</li>
+                    </ul>
+                    <a href="#contact" class="block w-full py-3 text-center border border-slate-300 rounded font-bold text-slate-600 hover:bg-slate-50 transition">私訊詢問</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials: Quote Style -->
+    <section class="py-24 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-slate-900 mb-16">來自醫學中心的推薦</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Review Card -->
+                <div class="relative bg-slate-50 p-8 rounded-tr-3xl rounded-bl-3xl border border-slate-100">
+                    <i class="fa-solid fa-quote-left text-4xl text-slate-200 absolute top-4 left-4"></i>
+                    <p class="relative z-10 text-slate-600 italic mb-6 pt-6">
+                        "老師這題你上課真的講過！看到題目當下差點叫出來，這不只是考過，這是救了我的藥理學。"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center font-bold text-slate-500 mr-3">陳</div>
+                        <div>
+                            <div class="font-bold text-slate-900 text-sm">陳同學</div>
+                            <div class="text-xs text-slate-500">應屆通過國考</div>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Review Card -->
+                 <div class="relative bg-slate-50 p-8 rounded-tr-3xl rounded-bl-3xl border border-slate-100">
+                    <i class="fa-solid fa-quote-left text-4xl text-slate-200 absolute top-4 left-4"></i>
+                    <p class="relative z-10 text-slate-600 italic mb-6 pt-6">
+                        "進醫院後發現老師教的臨床邏輯真的很有用，尤其是心衰竭用藥那塊，跟主治醫師查房完全對得上。"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center font-bold text-slate-500 mr-3">林</div>
+                        <div>
+                            <div class="font-bold text-slate-900 text-sm">林醫師</div>
+                            <div class="text-xs text-slate-500">PGY</div>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Review Card -->
+                 <div class="relative bg-slate-50 p-8 rounded-tr-3xl rounded-bl-3xl border border-slate-100">
+                    <i class="fa-solid fa-quote-left text-4xl text-slate-200 absolute top-4 left-4"></i>
+                    <p class="relative z-10 text-slate-600 italic mb-6 pt-6">
+                        "之前自己讀都抓不到重點，上了全科班之後才發現原來以前都在背不會考的冷知識，投資報酬率超高。"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center font-bold text-slate-500 mr-3">張</div>
+                        <div>
+                            <div class="font-bold text-slate-900 text-sm">張同學</div>
+                            <div class="text-xs text-slate-500">重考生 (已上榜)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-slate-900 mb-12">常見問題 FAQ</h2>
+            <div class="space-y-4">
+                <details class="group bg-white rounded border border-slate-200 p-6 cursor-pointer open:ring-1 open:ring-cyan-500 transition">
+                    <summary class="flex justify-between items-center font-bold text-slate-800 list-none">
+                        <span>課程可以重複觀看嗎？</span>
+                        <span class="transition group-open:rotate-180 text-cyan-600">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <p class="text-slate-600 mt-4 text-sm leading-relaxed">
+                        可以。購買全修班後，在該年度國考結束前皆可無限次重複觀看。我們建議您利用通勤等零碎時間反覆聆聽重點章節。
+                    </p>
+                </details>
+                <details class="group bg-white rounded border border-slate-200 p-6 cursor-pointer open:ring-1 open:ring-cyan-500 transition">
+                    <summary class="flex justify-between items-center font-bold text-slate-800 list-none">
+                        <span>遇到問題可以問老師嗎？</span>
+                        <span class="transition group-open:rotate-180 text-cyan-600">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <p class="text-slate-600 mt-4 text-sm leading-relaxed">
+                        當然！我們有專屬的學員 LINE 群組 (VIP Group)，老師與助教會在群組內定期回覆大家的問題，甚至會針對當週熱門問題錄製短片解說。
+                    </p>
+                </details>
+                <details class="group bg-white rounded border border-slate-200 p-6 cursor-pointer open:ring-1 open:ring-cyan-500 transition">
+                    <summary class="flex justify-between items-center font-bold text-slate-800 list-none">
+                        <span>包含最新的指引更新 (Guideline Update) 嗎？</span>
+                        <span class="transition group-open:rotate-180 text-cyan-600">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <p class="text-slate-600 mt-4 text-sm leading-relaxed">
+                        是的，這也是最多學員選擇我們的原因。考前 1 個月我們會發布「最新指引修正包」，整理這一年來與舊版教科書衝突的新考點，確保您不會因為資訊落後而失分。
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Magnet / CTA -->
+    <section class="py-20 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#0e7490 1px, transparent 1px); background-size: 30px 30px;"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl font-bold mb-6">想先體驗「減法思維」的威力？</h2>
+            <p class="text-slate-300 mb-10 text-lg">輸入 Email，立即寄送給您 <span class="text-cyan-400 font-bold">「考前 10 分鐘必看口訣表」</span> 與 <span class="text-cyan-400 font-bold">「心衰竭試看影片連結」</span>。</p>
+            
+            <form class="flex flex-col sm:flex-row justify-center gap-4 max-w-lg mx-auto">
+                <input type="email" placeholder="請輸入您的 Email" class="px-6 py-4 rounded bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 w-full">
+                <button type="submit" class="bg-cyan-600 text-white font-bold px-8 py-4 rounded hover:bg-cyan-500 transition shadow-lg whitespace-nowrap">
+                    免費領取
+                </button>
+            </form>
+            <p class="text-xs text-slate-500 mt-4">您的資料絕對保密，我們只會寄送高價值的國考資訊。</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-white border-t border-slate-200 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <i class="fa-solid fa-staff-snake text-cyan-700 text-2xl mr-2"></i>
+                        <span class="font-bold text-xl text-slate-900">[您的名字] 醫學國考導航</span>
+                    </div>
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-sm">
+                        致力於幫助台灣醫學生、藥學生，以最短的時間掌握國考核心。不只為了考試，更為了成為具備臨床邏輯的優秀醫療人員。
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-slate-900 font-bold mb-6 uppercase text-sm tracking-wider">Contact</h4>
+                    <ul class="space-y-3 text-sm text-slate-600">
+                        <li class="flex items-center"><i class="fa-brands fa-line text-green-500 text-lg mr-3"></i> ID: @MedPassExample</li>
+                        <li class="flex items-center"><i class="fa-regular fa-envelope text-slate-400 text-lg mr-3"></i> doctor@example.com</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-slate-900 font-bold mb-6 uppercase text-sm tracking-wider">Action</h4>
+                    <button class="w-full bg-green-500 text-white px-4 py-3 rounded font-bold hover:bg-green-600 transition flex items-center justify-center shadow-lg shadow-green-500/20">
+                        <i class="fa-brands fa-line mr-2"></i> LINE 一對一諮詢
+                    </button>
+                </div>
+            </div>
+            <div class="border-t border-slate-100 mt-12 pt-8 text-sm text-center text-slate-400 flex flex-col md:flex-row justify-between items-center">
+                <span>&copy; 2024 [您的名字] Med.Edu. All rights reserved.</span>
+                <div class="mt-4 md:mt-0 space-x-6">
+                    <a href="#" class="hover:text-slate-600 transition"><i class="fa-brands fa-facebook text-xl"></i></a>
+                    <a href="#" class="hover:text-slate-600 transition"><i class="fa-brands fa-instagram text-xl"></i></a>
+                    <a href="#" class="hover:text-slate-600 transition"><i class="fa-brands fa-youtube text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
